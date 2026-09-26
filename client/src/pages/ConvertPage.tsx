@@ -1,22 +1,17 @@
-import { Link } from "react-router";
-import sateDocsIcon from "@/assets/SateDocs_Icon.png";
-import { SateDocsWordmark } from "@/components/SateDocsWordMark";
 import { DropZone } from "@/components/DropZone";
-import type { UploadedImage } from "@/types/images";
+import { ImagePreviewGrid } from "@/components/ImagePreviewGrid";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import sateDocsIcon from "@/assets/SateDocs_Icon.png";
+import { Link } from "react-router";
+import { SateDocsWordmark } from "@/components/SateDocsWordMark";
 
 export default function ConverterPage() {
-  const handleFiles = (files: File[]) => {
-    const images: UploadedImage[] = files.map((file) => ({
-      id: crypto.randomUUID(),
-      file,
-      previewUrl: URL.createObjectURL(file),
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    }));
-    console.log("Received images:", images);
-    // Later: feed these into a state hook
-  };
+  const { images, addFiles, removeImage, clearAll, totalSize } = useImageUpload(
+    {
+      maxFiles: 20,
+      maxSizeBytes: 10 * 1024 * 1024,
+    },
+  );
 
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900">
@@ -43,16 +38,25 @@ export default function ConverterPage() {
 
       {/* Main content */}
       <main className="mx-auto max-w-3xl px-6 py-10">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            Convert images to PDF
-          </h1>
-          <p className="mt-2 text-sm text-slate-600">
-            Drop your images below. They'll be combined into a single PDF.
-          </p>
-        </div>
+        <section className="mx-auto max-w-3xl px-6 py-10">
+          <div className="mb-8 text-center">
+            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+              Convert images to PDF
+            </h1>
+            <p className="mt-2 text-sm text-slate-600">
+              Drop your images below. They'll be combined into a single PDF.
+            </p>
+          </div>
 
-        <DropZone onFiles={handleFiles} />
+          <DropZone onFiles={addFiles} maxFiles={20} />
+
+          <ImagePreviewGrid
+            images={images}
+            onRemove={removeImage}
+            onClearAll={clearAll}
+            totalSize={totalSize}
+          />
+        </section>
       </main>
     </div>
   );
