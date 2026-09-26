@@ -1,9 +1,13 @@
+import { Routes, Route, Navigate } from "react-router";
+import LandingPage from "@/pages/LandingPage";
+import ConverterPage from "@/pages/ConvertPage";
+
 export default function App() {
   return (
-    <div className="min-h-screen bg-brand-50 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-brand-700">
-        Tailwind is working ✅
-      </h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/convert" element={<ConverterPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
