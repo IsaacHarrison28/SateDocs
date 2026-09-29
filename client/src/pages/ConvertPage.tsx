@@ -20,6 +20,10 @@ export default function ConverterPage() {
   const { status, error, convert } = useConversion();
 
   const handleConvert = () => {
+    console.log("🚨 HANDLE CONVERT FIRED", {
+      imageCount: images.length,
+      options,
+    });
     const files = images.map((img) => img.file);
     void convert(files, options);
   };

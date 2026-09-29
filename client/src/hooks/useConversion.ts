@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { convertImages, downloadBlob } from "@/services/api";
 import type { ConvertOptions } from "@/types/api";
 
 export type ConversionStatus = "idle" | "converting" | "success" | "error";
@@ -22,17 +23,11 @@ export function useConversion(): UseConversionReturn {
       setError(null);
 
       try {
-        // TODO: replace with real API call in the next step
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        console.log("Would convert:", {
-          fileCount: files.length,
-          options,
-        });
+        const blob = await convertImages(files, options);
+        const filename = `satedocs-${Date.now()}.pdf`;
+        downloadBlob(blob, filename);
 
         setStatus("success");
-
-        // Reset to idle after a short success flash
         window.setTimeout(() => setStatus("idle"), 2000);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Conversion failed");
