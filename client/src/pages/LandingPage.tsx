@@ -12,30 +12,29 @@ export default function App() {
       </div>
 
       {/* Header */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-2">
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
+        <Link to="/" className="flex items-center gap-2.5">
           <img
             src={sateDocsIcon}
             alt="SateDocs logo"
-            className="h-20 w-20 rounded-lg object-contain"
-            loading="lazy"
+            className="h-20 w-20 object-contain mix-blend-multiply"
           />
           <SateDocsWordmark size="sm" as="span" />
-        </div>
+        </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-slate-600 sm:flex">
-          <a
-            href="#how-it-works"
+          <Link
+            to="/how-it-works"
             className="transition-colors hover:text-brand-600"
           >
             How it works
-          </a>
-          <a
-            href="#features"
-            className="transition-colors hover:text-brand-600"
+          </Link>
+          <Link
+            to="/convert"
+            className="rounded-lg bg-brand-600 px-3.5 py-1.5 font-medium text-white transition-colors hover:bg-brand-700"
           >
-            Features
-          </a>
+            Convert
+          </Link>
         </nav>
       </header>
 
