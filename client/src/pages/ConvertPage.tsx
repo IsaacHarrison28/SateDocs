@@ -16,7 +16,7 @@ export default function ConverterPage() {
     useImageUpload({ maxFiles: 20, maxSizeBytes: 10 * 1024 * 1024 });
 
   const [options, setOptions] = useState<ConvertOptions>(DEFAULT_OPTIONS);
-  const { status, error, convert } = useConversion();
+  const { status, error, convert, progress } = useConversion();
 
   const handleConvert = () => {
     const files = images.map((img) => img.file);
@@ -79,6 +79,7 @@ export default function ConverterPage() {
                 status={status}
                 disabled={!hasImages}
                 onClick={handleConvert}
+                progress={progress}
               />
 
               {error && (
