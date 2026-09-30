@@ -10,8 +10,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/convert" element={<ConverterPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ErrorRedirect>
   );
