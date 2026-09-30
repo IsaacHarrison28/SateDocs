@@ -21,13 +21,9 @@ const options: ConvertOptions = {
 const pdf = await pdfService.createDocument();
 
 for (const imagePath of imagePaths) {
-  console.log(`Processing: ${path.basename(imagePath)}`);
   const image = await imageService.processImage(
     imagePath,
     options.imageQuality,
-  );
-  console.log(
-    `  → ${image.width}×${image.height}, ${image.buffer.byteLength} bytes`,
   );
 
   await pdfService.addImagePage(pdf, image, options);
@@ -36,5 +32,3 @@ for (const imagePath of imagePaths) {
 const bytes = await pdf.save();
 const output = `./test-output-${Date.now()}.pdf`;
 await fs.writeFile(output, bytes);
-
-console.log(`\n✅ Wrote ${bytes.byteLength} bytes to ${output}`);

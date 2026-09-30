@@ -7,8 +7,3 @@ if (!testPath) {
 }
 
 const result = await imageService.processImage(testPath, 90);
-
-console.log("Processed image:");
-console.log("  buffer size:", result.buffer.byteLength, "bytes");
-console.log("  dimensions:", `${result.width}×${result.height}`);
-console.log("  mime sniff:", result.buffer.subarray(0, 3).toString("hex"));

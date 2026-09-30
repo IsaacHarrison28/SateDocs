@@ -12,18 +12,13 @@ import { DEFAULT_OPTIONS } from "@/lib/constants";
 import type { ConvertOptions } from "@/types/api";
 
 export default function ConverterPage() {
-  const { images, addFiles, removeImage, clearAll, totalSize } = useImageUpload(
-    { maxFiles: 20, maxSizeBytes: 10 * 1024 * 1024 },
-  );
+  const { images, addFiles, removeImage, clearAll, moveImage, totalSize } =
+    useImageUpload({ maxFiles: 20, maxSizeBytes: 10 * 1024 * 1024 });
 
   const [options, setOptions] = useState<ConvertOptions>(DEFAULT_OPTIONS);
   const { status, error, convert } = useConversion();
 
   const handleConvert = () => {
-    console.log("🚨 HANDLE CONVERT FIRED", {
-      imageCount: images.length,
-      options,
-    });
     const files = images.map((img) => img.file);
     void convert(files, options);
   };
@@ -70,6 +65,7 @@ export default function ConverterPage() {
           images={images}
           onRemove={removeImage}
           onClearAll={clearAll}
+          onReorder={moveImage}
           totalSize={totalSize}
         />
 
